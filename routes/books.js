@@ -1,54 +1,55 @@
 const express = require("express");
-const {getAllBooks,getSingleBookById,getAllIssuedBook,addnewBook,updateBookById} = require("../controllers/book-controller")
+const {getAllBooks, getSingleBookById, getAllIssuedBooks, addNewBook, updateBookById,deleteBook} = require("../controllers/book-controller");
+const { UserModel, BookModel } = require("../models");
 
-const {UserModel , BookModel} = require("../Models/index");
 const router = express.Router();
 
-/*
-     Route : /books
-     Method : GET
-     Description : get all books
-     Access : public
-     Parameters : none
-*/
+/**
+ * Route: /books
+ * Method: GET
+ * Description: Get all the books
+ * Access: Public
+ * Parmanters: none
+ */
 
-router.get("/",getAllBooks);
+router.get("/", getAllBooks);
 
-/*
-     Route : /books/issued
-     Method : GET
-     Description :issue book
-     Access : public
-     Parameters : none
-*/
+/**
+ * Route: /books/:id
+ * Method: GET
+ * Description: Get book by thier id
+ * Access: Public
+ * Parmanters: id
+ */
+router.get("/:id", getSingleBookById);
 
-router.get("/issued/by-user",getAllIssuedBook);
-/*
-     Route : /books/:id
-     Method : GET
-     Description : get the book by id
-     Access : public
-     Parameters : id
-*/
+/**
+ * Route: /books/issued/by-user
+ * Method: GET
+ * Description: Get all issued books
+ * Access: Public
+ * Parmanters: none
+ */
+router.get("/issued", getAllIssuedBooks);
 
-router.get("/:id",getSingleBookById);
+/**
+ * Route: /books
+ * Method: POST
+ * Description: Create new book
+ * Access: Public
+ * Parmanters: none
+ */
+router.post("/", addNewBook);
 
-/*
-     Route : /books
-     Method : POST
-     Description :creating/adding a new book
-     Access : public
-     Parameters : none
-*/
-router.post("/", addnewBook);
+/**
+ * Route: /books/:id
+ * Method: PUT
+ * Description: Updating a book
+ * Access: Public
+ * Parmanters: id
+ */
+router.put("/:id", updateBookById);
 
-/*
-     Route : /books/:id
-     Method : PUT
-     Description :updating book by id
-     Access : public
-     Parameters : id
-*/
-router.put("/updateBook/:id",updateBookById );
+router.delete("/:id",deleteBook);
 
 module.exports = router;
